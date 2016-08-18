@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "name": "spfx-weather-webpart-client-side-solution",
+    "id": "183eb8a7-bbd9-4d0a-8dd3-62fe289324ca",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "spfx-weather-webpart.spapp"
+  }
+}
