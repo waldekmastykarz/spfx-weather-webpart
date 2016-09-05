@@ -5,14 +5,14 @@ import {
   PropertyPaneTextField
 } from '@microsoft/sp-client-preview';
 
-import ModuleLoader from '@microsoft/sp-module-loader';
-
 import styles from './Weather.module.scss';
-import * as strings from 'mystrings';
+import * as strings from 'weatherStrings';
 import { IWeatherWebPartProps } from './IWeatherWebPartProps';
 
+import * as $ from 'jquery';
+require('simpleWeather');
+
 export default class WeatherWebPart extends BaseClientSideWebPart<IWeatherWebPartProps> {
-  private jQuery: any;
   private container: JQuery;
 
   public constructor(context: IWebPartContext) {
@@ -22,21 +22,13 @@ export default class WeatherWebPart extends BaseClientSideWebPart<IWeatherWebPar
   public render(): void {
     if (this.renderedOnce === false) {
       this.domElement.innerHTML = `<div class="${styles.weather}"></div>`;
+    }
 
-      ModuleLoader.loadScript('https://code.jquery.com/jquery-2.1.1.min.js', 'jQuery').then(($: any): void => {
-        this.jQuery = $;
-        ModuleLoader.loadScript('https://cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js', 'jQuery').then((): void => {
-          this.renderContents();
-        });
-      });
-    }
-    else {
-      this.renderContents();
-    }
+    this.renderContents();
   }
 
   private renderContents(): void {
-    this.container = this.jQuery(`.${styles.weather}`, this.domElement);
+    this.container = $(`.${styles.weather}`, this.domElement);
 
     const location: string = this.properties.location;
 
@@ -47,7 +39,7 @@ export default class WeatherWebPart extends BaseClientSideWebPart<IWeatherWebPar
 
     const webPart: WeatherWebPart = this;
 
-    this.jQuery.simpleWeather({
+    ($ as any).simpleWeather({
       location: location,
       woeid: '',
       unit: 'c',
@@ -55,7 +47,10 @@ export default class WeatherWebPart extends BaseClientSideWebPart<IWeatherWebPar
         const html: string =
           `<h2><i class="icon${weather.code}"></i> ${weather.temp}&deg;${weather.units.temp}</h2>
            <ul><li>${weather.city} ${weather.region}</li></ul>`;
-        webPart.container.html(html).removeAttr('style').css('background', `url('http://loremflickr.com/500/139/${location}')`);
+        webPart.container.html(html)
+          .removeAttr('style')
+          .css('background',
+            `url('http://loremflickr.com/500/139/${location}')`);
       },
       error: (error: any): void => {
         webPart.container.html(`<p>${error.message}</p>`).removeAttr('style');

@@ -7,9 +7,6 @@
   "installed": {
     "jquery/jquery.d.ts": {
       "commit": "9b94d577a8d15f2a56701a0df46b447a7535baf6"
-    },
-    "combokeys/combokeys.d.ts": {
-      "commit": "9b94d577a8d15f2a56701a0df46b447a7535baf6"
     }
   }
 }
