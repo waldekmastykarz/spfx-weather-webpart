@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "libraryName": "spfx-weather-webpart",
+    "framework": "none",
+    "version": "1.0.0",
+    "libraryId": "183eb8a7-bbd9-4d0a-8dd3-62fe289324ca"
+  }
+}

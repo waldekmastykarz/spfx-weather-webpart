@@ -2,6 +2,7 @@
   "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
 
   "id": "de33e780-5ae0-4d1e-abbc-5ef3468debb1",
+  "alias": "WeatherWebPart",
   "componentType": "WebPart",
   "version": "0.0.1",
   "manifestVersion": 2,

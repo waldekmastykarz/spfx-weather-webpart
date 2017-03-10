@@ -5,6 +5,6 @@
     "version": "1.0.0.0"
   },
   "paths": {
-    "zippedPackage": "spfx-weather-webpart.spapp"
+    "zippedPackage": "solution/spfx-weather-webpart.sppkg"
   }
 }

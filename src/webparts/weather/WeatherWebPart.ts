@@ -1,9 +1,10 @@
+import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
-  IPropertyPaneSettings,
-  IWebPartContext,
+  IPropertyPaneConfiguration,
   PropertyPaneTextField
-} from '@microsoft/sp-client-preview';
+} from '@microsoft/sp-webpart-base';
+import { escape } from '@microsoft/sp-lodash-subset';
 
 import styles from './Weather.module.scss';
 import * as strings from 'weatherStrings';
@@ -14,10 +15,6 @@ require('simpleWeather');
 
 export default class WeatherWebPart extends BaseClientSideWebPart<IWeatherWebPartProps> {
   private container: JQuery;
-
-  public constructor(context: IWebPartContext) {
-    super(context);
-  }
 
   public render(): void {
     if (this.renderedOnce === false) {
@@ -30,7 +27,7 @@ export default class WeatherWebPart extends BaseClientSideWebPart<IWeatherWebPar
   private renderContents(): void {
     this.container = $(`.${styles.weather}`, this.domElement);
 
-    const location: string = this.properties.location;
+    const location: string = escape(this.properties.location);
 
     if (!location || location.length === 0) {
       this.container.html('<p>Please specify a location</p>');
@@ -58,7 +55,11 @@ export default class WeatherWebPart extends BaseClientSideWebPart<IWeatherWebPar
     });
   }
 
-  protected get propertyPaneSettings(): IPropertyPaneSettings {
+  protected get dataVersion(): Version {
+    return Version.parse('1.0');
+  }
+
+  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
         {
