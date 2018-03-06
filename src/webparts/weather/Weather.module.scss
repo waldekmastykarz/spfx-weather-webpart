@@ -22,6 +22,7 @@
         font-weight: normal;
         font-style: normal;
         line-height: 1.0;
+        text-transform: initial;
 
         &[class=icon0]:before { content: ":"; }
         &[class=icon1]:before { content: "p"; }
